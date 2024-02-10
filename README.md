@@ -1,1 +1,1 @@
-# practic-api
+Qudaybergenov Zhalgasbay
