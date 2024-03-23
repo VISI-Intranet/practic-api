@@ -31,6 +31,7 @@ case class Practice (
                       raspicnya:List[Int],
                       ocenka:Ocenka.Ocenka,
                       spisok_dokumentov:List[Int]
+
                     )
 
 object JsonFormats {

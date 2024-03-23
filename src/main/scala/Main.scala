@@ -1,17 +1,27 @@
-import akka.actor.ActorSystem
+package Main
+import akka.actor.{ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import org.mongodb.scala.MongoClient
 import Repository._
 import Routing._
 import Model._
+
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import java.util.Date
 import akka.http.scaladsl.Http
-object Main extends App {
+import amqp._
+import com.typesafe.config.ConfigFactory
 
-  implicit val system: ActorSystem = ActorSystem("MyAkkaHttpServer")
+object Main extends App {
+  val serviceConfig = ConfigFactory.load("service_app.conf")
+  val serviceName = serviceConfig.getString("service.serviceName")
+  println(serviceName)
+
+  implicit val system: ActorSystem = ActorSystem(serviceName)
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
+
+  val amqpActor = system.actorOf(Props(new AmqpActor("X:routing.topic2",serviceName)),"amqpActor")
 
   // Подключение к базе данных
   val client = MongoClient()
@@ -39,4 +49,6 @@ object Main extends App {
       .flatMap(_.unbind())
       .onComplete(_ => system.terminate())
   }
+
+
 }
