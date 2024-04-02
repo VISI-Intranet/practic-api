@@ -39,9 +39,9 @@ object Main extends App {
 
 
   // Старт сервера
-  private val bindingFuture = Http().bindAndHandle(practiceRoutes.route, "localhost", 8080)
+  private val bindingFuture = Http().bindAndHandle(practiceRoutes.route, "localhost", 8082)
 
-  println(s"Server online at http://localhost:8080/")
+  println(s"Server online at http://localhost:8082/")
 
   // Остановка сервера при завершении приложения
   sys.addShutdownHook {

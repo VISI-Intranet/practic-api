@@ -44,14 +44,15 @@ class PracticeRoutes(implicit val practiceRepository: PracticeRepository, system
                 val requestJson =
                   s"""{
                      |"actionClass":"request",
-                     |"routingKey":"univer.practicapi.post",
+                     |"routingKey":"univer.schedule_api.post",
                      |"body":{
                      |  "id":"${practice.practiceId}"
                      | }
                      |}""".stripMargin
-                val scheduleResponse = (amqpActor ? RabbitMQ.Ask("univer.practicapi.post",requestJson))
+                val scheduleResponse = (amqpActor ? RabbitMQ.Ask("univer.schedule_api.post",requestJson))
                 onComplete(scheduleResponse) {
                   case Success(schedule_json: String) =>
+                    println(schedule_json)
                     val jsonString = schedule_json
                     val body = parse(jsonString) \ "body"
                     val scheduleId = (body \ "scheduleId").extract[String]
