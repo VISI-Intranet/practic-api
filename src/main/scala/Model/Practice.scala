@@ -28,7 +28,7 @@ case class Practice (
                       spisok_studentov:List[Int],
                       status:Status.Status,
                       tip: Tip.Tip,
-                      raspicnya:List[Int],
+                      raspicnya:Int,
                       ocenka:Ocenka.Ocenka,
                       spisok_dokumentov:List[Int]
 

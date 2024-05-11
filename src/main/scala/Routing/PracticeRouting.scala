@@ -46,7 +46,7 @@ class PracticeRoutes(implicit val practiceRepository: PracticeRepository, system
                      |"actionClass":"request",
                      |"routingKey":"univer.schedule_api.post",
                      |"body":{
-                     |  "id":"${practice.practiceId}"
+                     |  "id":"${practice.raspicnya}"
                      | }
                      |}""".stripMargin
                 val scheduleResponse = (amqpActor ? RabbitMQ.Ask("univer.schedule_api.post",requestJson))

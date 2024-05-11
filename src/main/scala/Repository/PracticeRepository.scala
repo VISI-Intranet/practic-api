@@ -33,7 +33,7 @@ class PracticeRepository(implicit ec: ExecutionContext) {
           spisok_studentov = Option(doc.getList("spisok_studentov", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty),
           status = Status.withName(doc.getString("status")),
           tip = Tip.withName(doc.getString("tip")),
-          raspicnya = Option(doc.getList("raspicnya", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty),
+          raspicnya = doc.getInteger("raspicanyaId"),
           ocenka = Ocenka.withName(doc.getString("ocenka")),
           spisok_dokumentov = Option(doc.getList("spisok_dokumentov", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty),
 
@@ -61,7 +61,7 @@ class PracticeRepository(implicit ec: ExecutionContext) {
             spisok_studentov = Option(doc.getList("spisok_studentov", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty),
             status = Status.withName(doc.getString("status")),
             tip = Tip.withName(doc.getString("tip")),
-            raspicnya = Option(doc.getList("raspicnya", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty),
+            raspicnya = doc.getInteger("raspicanyaId"),
             ocenka = Ocenka.withName(doc.getString("ocenka")),
             spisok_dokumentov = Option(doc.getList("spisok_dokumentov", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty)
           )
@@ -94,7 +94,7 @@ class PracticeRepository(implicit ec: ExecutionContext) {
               spisok_studentov = Option(doc.getList("spisok_studentov", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty),
               status = Status.withName(doc.getString("status")),
               tip = Tip.withName(doc.getString("tip")),
-              raspicnya = Option(doc.getList("raspicnya", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty),
+              raspicnya = doc.getInteger("raspicanyaId"),
               ocenka = Ocenka.withName(doc.getString("ocenka")),
               spisok_dokumentov = Option(doc.getList("spisok_dokumentov", classOf[Integer])).map(_.asScala.toList.map(_.toInt)).getOrElse(List.empty)
             )
@@ -119,7 +119,7 @@ class PracticeRepository(implicit ec: ExecutionContext) {
       "spisok_studentov" -> BsonArray(practice.spisok_studentov.map(BsonInt32(_))),
       "status" -> BsonString(practice.status.toString),
       "tip" -> BsonString(practice.tip.toString),
-      "raspicnya" -> BsonArray(practice.raspicnya.map(BsonInt32(_))),
+      "raspicnya" ->BsonInt32(practice.raspicnya),
       "ocenka" -> BsonString(practice.ocenka.toString),
       "spisok_dokumentov" -> BsonArray(practice.spisok_dokumentov.map(BsonInt32(_)))
     )
@@ -149,7 +149,7 @@ class PracticeRepository(implicit ec: ExecutionContext) {
         "spisok_studentov" -> BsonArray(updatedPractice.spisok_studentov.map(BsonInt32(_))),
         "status" -> BsonString(updatedPractice.status.toString),
         "tip" -> BsonString(updatedPractice.tip.toString),
-        "raspicnya" -> BsonArray(updatedPractice.raspicnya.map(BsonInt32(_))),
+        "raspicnya" ->BsonInt32(updatedPractice.raspicnya),
         "ocenka" -> BsonString(updatedPractice.ocenka.toString),
         "spisok_dokumentov" -> BsonArray(updatedPractice.spisok_dokumentov.map(BsonInt32(_)))      )
     )
@@ -181,7 +181,7 @@ class PracticeRepository(implicit ec: ExecutionContext) {
       "spisok_studentov" -> BsonArray(practice.spisok_studentov.map(BsonInt32(_))),
       "status" -> BsonString(practice.status.toString),
       "tip" -> BsonString(practice.tip.toString),
-      "raspicnya" -> BsonArray(practice.raspicnya.map(BsonInt32(_))),
+      "raspicnya" ->BsonInt32(practice.raspicnya),
       "ocenka" -> BsonString(practice.ocenka.toString),
       "spisok_dokumentov" -> BsonArray(practice.spisok_dokumentov.map(BsonInt32(_))),
       "scheduleDocument" -> fields

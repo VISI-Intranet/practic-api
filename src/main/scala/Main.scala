@@ -21,7 +21,7 @@ object Main extends App {
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 
-  val amqpActor = system.actorOf(Props(new AmqpActor("X:routing.topic2",serviceName)),"amqpActor")
+  val amqpActor = system.actorOf(Props(new AmqpActor("UniverSystem",serviceName)),"amqpActor")
 
   // Подключение к базе данных
   val client = MongoClient()
@@ -39,9 +39,9 @@ object Main extends App {
 
 
   // Старт сервера
-  private val bindingFuture = Http().bindAndHandle(practiceRoutes.route, "localhost", 8082)
+  private val bindingFuture = Http().bindAndHandle(practiceRoutes.route, "0.0.0.0", 8081)
 
-  println(s"Server online at http://localhost:8082/")
+  println(s"Server online at http://0.0.0.0:8081/")
 
   // Остановка сервера при завершении приложения
   sys.addShutdownHook {

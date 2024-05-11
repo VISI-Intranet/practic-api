@@ -21,3 +21,13 @@ lazy val root = (project in file("."))
 
     )
   )
+ThisBuild / assemblyMergeStrategy in assembly := {
+  case PathList("google", "protobuf", "any.proto") => MergeStrategy.first
+  case PathList("google", "protobuf", "descriptor.proto") => MergeStrategy.first
+  case PathList("google", "protobuf", "empty.proto") => MergeStrategy.first
+  case PathList("google", "protobuf", "struct.proto") => MergeStrategy.first
+  case PathList("module-info.class") => MergeStrategy.first // Здесь происходит изменение
+  case x =>
+    val oldStrategy = (assemblyMergeStrategy in assembly).value
+    oldStrategy(x)
+}
